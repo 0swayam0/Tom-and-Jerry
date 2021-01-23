@@ -1,4 +1,4 @@
-var back,cat,mouse;
+var cat,mouse;
 
 var backImg,catImg1,catRun,catImg2,mouseImg1,mouseImg2,mouseImg3;
 
