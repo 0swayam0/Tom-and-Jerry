@@ -6,34 +6,31 @@ function preload() {
     
     backImg=loadImage("images/garden.png");
 
-    catImg1=loadImage("images/tomOne.png");
+    catImg1=loadAnimation("images/tomOne.png");
     catRun=loadAnimation("images/tomTwo.png","images/tomThree.png");
-    catImg2=loadImage("images/tomFour.png");
+    catImg2=loadAnimation("images/tomFour.png");
 
-    mouseImg1=loadImage("images/jerryOne.png");
+    mouseImg1=loadAnimation("images/jerryOne.png");
     mouseImg2=loadAnimation("images/jerryTwo.png","images/jerryThree.png");
-    mouseImg3=loadImage("images/jerryFour.png");
+    mouseImg3=loadAnimation("images/jerryFour.png");
 
 }
 
 function setup(){
     createCanvas(1200,800);
-    
-    back=createSprite(400,400,0,0);
-    back.addImage(backImg);
-    back.scale=1;
-
-    cat=createSprite(600,600,0,0);
-    cat.addImage(catImg1);
+   
+    cat=createSprite(700,650,0,0);
+    cat.addAnimation(".",catImg1);
     cat.scale=0.1;
 
-    mouse=createSprite(150,600,0,0);
-    mouse.addImage(mouseImg1);
+    mouse=createSprite(150,650,0,0);
+    mouse.addAnimation(".",mouseImg1);
     mouse.scale=0.08;
 }
 
 function draw() {
-   
+    background(backImg);
+    
     keyPressed();
 
     drawSprites();
@@ -62,5 +59,4 @@ function keyPressed(){
 
         cat.x=mouse.x+60;
     }
-
 }
