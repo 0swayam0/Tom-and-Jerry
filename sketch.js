@@ -1,62 +1,80 @@
-var cat,mouse;
-
-var backImg,catImg1,catRun,catImg2,mouseImg1,mouseImg2,mouseImg3;
+var canvas1,bg;
+var together;
+var tom, tomImg1,tomImg2;
+var jerry, jerryImg1,jerryImg2;
 
 function preload() {
-    
-    backImg=loadImage("images/garden.png");
-
-    catImg1=loadAnimation("images/tomOne.png");
-    catRun=loadAnimation("images/tomTwo.png","images/tomThree.png");
-    catImg2=loadAnimation("images/tomFour.png");
-
-    mouseImg1=loadAnimation("images/jerryOne.png");
-    mouseImg2=loadAnimation("images/jerryTwo.png","images/jerryThree.png");
-    mouseImg3=loadAnimation("images/jerryFour.png");
+    bg = loadImage("garden.jpg");
+    tomImg1= loadAnimation("tomOne_new.png");
+    tomImg2=loadAnimation("tomTwo.png","tomThree.png");
+    tomImg3= loadAnimation("tomFour.png");
+    jerryImg1=loadAnimation("jerryOne_new.png");
+    jerryImg2= loadAnimation("jerryTwo_new.png","jerryThree_new.png");
+    jerryImg3=loadAnimation("jerryFour_new.png");
 
 }
 
 function setup(){
-    createCanvas(1200,800);
-   
-    cat=createSprite(700,650,0,0);
-    cat.addAnimation(".",catImg1);
-    cat.scale=0.1;
+    createCanvas(1000,650);
+    canvas1 = createSprite(500,325);
+     canvas1.addImage(bg);
+    tom = createSprite(850, 600,130,80);
+    tom.addAnimation("tomSleeping", tomImg1);
+    tom.debug = true;
+    tom.scale=0.8;
 
-    mouse=createSprite(150,650,0,0);
-    mouse.addAnimation(".",mouseImg1);
-    mouse.scale=0.08;
+    jerry = createSprite(450, 480,60,100);
+    jerry.addAnimation("jerryStanding", jerryImg1);
+    jerry.debug = true;
+    jerry.scale=0.8;
+
+    tom.height = 80;
+    console.log(tom.x-jerry.x) ;
+    console.log(tom.width);
 }
 
 function draw() {
-    background(backImg);
+
+   // background(bg);
+
+    if(tom.x-jerry.x < tom.width/2+ jerry.width/2 && tom.y-jerry.y<tom.height/2+jerry.height/2)
+    {   
+        
+        console.log(jerry.width/2);
+        tom.velocityX=0;
+        tom.velocityY=0;
+        tom.addAnimation("tomLastImage", tomImg3);
+        //tom.x =jerry.x+jerry.width/2;
+        //tom.y = jerry.y+jerry.height/2;
+        tom.changeAnimation("tomLastImage");
+        jerry.addAnimation("jerryLastImage", jerryImg3);
+        jerry.changeAnimation("jerryLastImage");
+    }  
     
-    keyPressed();
 
     drawSprites();
-
 }
 
 
 function keyPressed(){
 
-    if(keyDown(LEFT_ARROW)){
-        cat.addAnimation("catRunning",catRun);
-        cat.changeAnimation("catRunning");
-        cat.velocityX=-5;
-
-        mouse.addAnimation("mouseRunning",mouseImg2);
-        mouse.changeAnimation("mouseRunning");
+    if(keyCode === LEFT_ARROW){
+        tom.velocityX = -5; 
+        tom.addAnimation("tomRunning", tomImg2);
+        tom.changeAnimation("tomRunning");
+        
+        jerry.addAnimation("jerryTeasing", jerryImg2);
+        jerry.frameDelay = 25;
+        jerry.changeAnimation("jerryTeasing");
     }
-
-    if(cat.x - mouse.x < (cat.width - mouse.width)/2){
-        cat.addAnimation("catStop",catImg2);
-        cat.changeAnimation("catStop");
-        cat.velocityX=0;
-
-        mouse.addAnimation("mouseStop",mouseImg3);
-        mouse.changeAnimation("mouseStop");
-
-        cat.x=mouse.x+60;
+    if(keyCode === UP_ARROW){
+        tom.velocityY = -1;
+        tom.addAnimation("tomRunning", tomImg2);
+        tom.changeAnimation("tomRunning");
+        
+        jerry.addAnimation("jerryTeasing", jerryImg2);
+        jerry.frameDelay = 25;
+        jerry.changeAnimation("jerryTeasing");
     }
+    
 }
